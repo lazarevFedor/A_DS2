@@ -2,7 +2,6 @@ package main
 
 import (
 	"container/list"
-	"fmt"
 )
 
 func getMinRunLength(n int) int {
@@ -54,14 +53,6 @@ func ReverseArray(array []int) []int {
 }
 
 func MergeSort(left, right []int) []int {
-	fmt.Println("\nleft array:")
-	for i := 0; i < len(left); i++ {
-		fmt.Printf("%d ", left[i])
-	}
-	fmt.Println("\nright array:")
-	for i := 0; i < len(right); i++ {
-		fmt.Printf("%d ", right[i])
-	}
 	res := make([]int, 0)
 	leftCount, rightCount := 0, 0
 	i, j := 0, 0
