@@ -2,6 +2,7 @@ package main
 
 import (
 	"container/list"
+	"fmt"
 )
 
 func getMinRunLength(n int) int {
@@ -18,10 +19,10 @@ func BinarySearch(array []int, element int) int {
 	left, right := 0, len(array)-1
 	for left <= right {
 		mid := (left + right) / 2
-		if mid < element {
-			right = mid - 1
-		} else {
+		if array[mid] < element {
 			left = mid + 1
+		} else {
+			right = mid - 1
 		}
 	}
 	return left
@@ -53,6 +54,14 @@ func ReverseArray(array []int) []int {
 }
 
 func MergeSort(left, right []int) []int {
+	fmt.Println("\nleft array:")
+	for i := 0; i < len(left); i++ {
+		fmt.Printf("%d ", left[i])
+	}
+	fmt.Println("\nright array:")
+	for i := 0; i < len(right); i++ {
+		fmt.Printf("%d ", right[i])
+	}
 	res := make([]int, 0)
 	leftCount, rightCount := 0, 0
 	i, j := 0, 0
