@@ -43,9 +43,14 @@ func TestSort(t *testing.T) {
 			expected: InsertionSort(generateRandomArray(150)),
 		},
 		{
-			name:     "Array with 150 elements",
+			name:     "Array with 1000 elements",
 			input:    generateRandomArray(1000),
 			expected: InsertionSort(generateRandomArray(1000)),
+		},
+		{
+			name:     "Array with 10000 elements",
+			input:    generateRandomArray(10000),
+			expected: InsertionSort(generateRandomArray(10000)),
 		},
 	}
 	for _, tc := range cases {
