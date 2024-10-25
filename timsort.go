@@ -52,7 +52,7 @@ func ReverseArray(array []int) []int {
 	return array
 }
 
-func MergeSort(left, right []int) ([]int, int) {
+func MergeSort(left, right []int) []int {
 	res := make([]int, 0)
 	leftCount, rightCount := 0, 0
 	i, j := 0, 0
@@ -92,14 +92,90 @@ func MergeSort(left, right []int) ([]int, int) {
 	}
 	res = append(res, left[i:]...)
 	res = append(res, right[j:]...)
-	return res, gallopCount
+	return res
 }
 
-func MergeBlocs(blocs list.List) {
-	//stack := list.New()
-	//mergeCount := 0
-	//for _, block := range blocs {
-	//}
+func MergeBlocs(blocs *list.List) []int {
+	stack := list.New()
+	mergeCount := 0
+	for blocs.Len() > 0 {
+		stack.PushFront(blocs.Front().Value.([]int))
+		blocs.Remove(blocs.Front())
+	}
+	for stack.Len() >= 2 {
+		if stack.Len() >= 3 {
+			var x, y, z []int
+			x = stack.Front().Value.([]int)
+			stack.Remove(stack.Front())
+			y = stack.Front().Value.([]int)
+			stack.Remove(stack.Front())
+			z = stack.Front().Value.([]int)
+			stack.Remove(stack.Front())
+			X, Y, Z := len(x), len(y), len(z)
+			if Z > (X+Y) && Y > X {
+				stack.PushFront(z)
+				stack.PushFront(y)
+				stack.PushFront(x)
+				break
+			}
+			if X <= Z {
+				merged := MergeSort(y, x)
+				stack.PushFront(z)
+				stack.PushFront(merged)
+			} else {
+				merged := MergeSort(z, y)
+				stack.PushFront(merged)
+				stack.PushFront(x)
+			}
+			mergeCount++
+		} else {
+			var x, y []int
+			x = stack.Front().Value.([]int)
+			stack.Remove(stack.Front())
+			y = stack.Front().Value.([]int)
+			stack.Remove(stack.Front())
+			X, Y := len(x), len(y)
+			if Y > X {
+				stack.PushFront(y)
+				stack.PushFront(x)
+				break
+			}
+			merged := MergeSort(y, x)
+			stack.PushFront(merged)
+			mergeCount++
+		}
+	}
+	for stack.Len() > 1 {
+		if stack.Len() >= 3 {
+			var x, y, z []int
+			x = stack.Front().Value.([]int)
+			stack.Remove(stack.Front())
+			y = stack.Front().Value.([]int)
+			stack.Remove(stack.Front())
+			z = stack.Front().Value.([]int)
+			stack.Remove(stack.Front())
+			X, Z := len(x), len(z)
+			if X <= Z {
+				merged := MergeSort(y, x)
+				stack.PushFront(z)
+				stack.PushFront(merged)
+			} else {
+				merged := MergeSort(z, y)
+				stack.PushFront(merged)
+				stack.PushFront(x)
+			}
+		} else {
+			var x, y []int
+			x = stack.Front().Value.([]int)
+			stack.Remove(stack.Front())
+			y = stack.Front().Value.([]int)
+			stack.Remove(stack.Front())
+			merged := MergeSort(y, x)
+			stack.PushFront(merged)
+		}
+	}
+	result := stack.Front().Value.([]int)
+	return result
 }
 
 func Sort(slice []int) []int {
@@ -149,5 +225,5 @@ func Sort(slice []int) []int {
 		}
 		runs.PushBack(run)
 	}
-	return slice
+	return MergeBlocs(runs)
 }
