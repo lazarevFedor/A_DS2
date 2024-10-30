@@ -63,7 +63,7 @@ func MergeSort(left, right []int) []int {
 			leftCount++
 			rightCount = 0
 			i++
-			if leftCount == 3 {
+			if leftCount == 7 {
 				gallopCount++
 				pos := BinarySearch(left[i:], right[j])
 				tmp := i
@@ -97,7 +97,6 @@ func MergeSort(left, right []int) []int {
 
 func MergeBlocs(blocs *list.List) []int {
 	stack := list.New()
-	mergeCount := 0
 	for blocs.Len() > 0 {
 		stack.PushFront(blocs.Front().Value.([]int))
 		blocs.Remove(blocs.Front())
@@ -127,7 +126,6 @@ func MergeBlocs(blocs *list.List) []int {
 				stack.PushFront(merged)
 				stack.PushFront(x)
 			}
-			mergeCount++
 		} else {
 			var x, y []int
 			x = stack.Front().Value.([]int)
@@ -142,7 +140,6 @@ func MergeBlocs(blocs *list.List) []int {
 			}
 			merged := MergeSort(y, x)
 			stack.PushFront(merged)
-			mergeCount++
 		}
 	}
 	for stack.Len() > 1 {

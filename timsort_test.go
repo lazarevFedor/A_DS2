@@ -18,7 +18,7 @@ func TestSort(t *testing.T) {
 			expected: []int{1, 2, 3, 4, 5},
 		},
 		{
-			name:     "2) Random array",
+			name:     "2) Small random array",
 			input:    []int{5, 3, 8, 1, 9, 2, 6, 4, 7},
 			expected: []int{1, 2, 3, 4, 5, 6, 7, 8, 9},
 		},
